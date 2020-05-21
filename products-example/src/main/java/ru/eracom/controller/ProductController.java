@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.eracom.persist.entity.Product;
@@ -49,5 +50,13 @@ public class ProductController {
 
         productRepository.saveProduct(product);
         return "redirect:/product";
+    }
+
+    @RequestMapping(value="/{id}")
+    public String findProductById(Model model, @PathVariable(value="id") int id) {
+        logger.info("Find product by id method");
+
+        model.addAttribute("products", productRepository.findById(id));
+        return "products";
     }
 }
