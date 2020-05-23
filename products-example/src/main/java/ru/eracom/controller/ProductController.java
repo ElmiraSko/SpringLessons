@@ -52,7 +52,7 @@ public class ProductController {
         return "redirect:/product";
     }
 
-    @RequestMapping(value="/{id}")
+    @GetMapping(value="/{id}")
     public String findProductById(Model model, @PathVariable(value="id") int id) {
         logger.info("Find product by id method");
 
