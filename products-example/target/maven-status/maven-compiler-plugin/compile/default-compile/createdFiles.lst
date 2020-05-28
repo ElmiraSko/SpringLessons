@@ -1,9 +1,12 @@
+ru\eracom\service\ProductService.class
 ru\eracom\WebInitializer.class
 ru\eracom\persist\repo\ProductRepository.class
 ru\eracom\AppConfig.class
 ru\eracom\persist\entity\Product.class
 ru\eracom\controller\ProductController.class
+ru\eracom\service\UserService.class
 ru\eracom\controller\UserController.class
 ru\eracom\persist\repo\UserRepository.class
 ru\eracom\persist\entity\User.class
+ru\eracom\AppPersistConfig.class
 ru\eracom\WelcomeController.class

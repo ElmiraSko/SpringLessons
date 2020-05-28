@@ -5,12 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.eracom.persist.entity.Product;
 import ru.eracom.persist.repo.ProductRepository;
+import ru.eracom.service.ProductService;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 // @RequestMapping означает, что данный контроллер будет обрабатывать все url,
 // которые начинаются с /product
@@ -20,18 +21,27 @@ public class ProductController {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
-    private ProductRepository productRepository;
+    private ProductService productService;
 
     @Autowired
-    public ProductController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
     @GetMapping
-    public String getProductList(Model model) {
-        logger.info("Product list");
+    public String getProductList(Model model,
+                                 @RequestParam(required = false) BigDecimal minCost,
+                                 @RequestParam(required = false) BigDecimal maxCost) {
+        logger.info("Product list width minCost{} and maxCost{}", minCost, maxCost);
 
-        model.addAttribute("products", productRepository.findProducts());
+        if (minCost == null){
+            minCost = new BigDecimal("0.00");
+        }
+        if (maxCost == null){
+            maxCost = new BigDecimal(Integer.MAX_VALUE);
+        }
+        List<Product> productList =productService.findAllByCostBetween(minCost, maxCost);
+        model.addAttribute("products", productList);
         return "products";
 
     }
@@ -48,7 +58,7 @@ public class ProductController {
     public String saveProduct(Product product) {
         logger.info("Save product method");
 
-        productRepository.saveProduct(product);
+        productService.saveProduct(product);
         return "redirect:/product";
     }
 
@@ -56,7 +66,7 @@ public class ProductController {
     public String findProductById(Model model, @PathVariable(value="id") int id) {
         logger.info("Find product by id method");
 
-        model.addAttribute("products", productRepository.findById(id));
+        model.addAttribute("products", productService.findById(id));
         return "products";
     }
 }

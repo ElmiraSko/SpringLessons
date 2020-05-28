@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.eracom.persist.entity.User;
-import ru.eracom.persist.repo.UserRepository;
+import ru.eracom.service.UserService;
 
 @RequestMapping("/user")
 @Controller
@@ -17,18 +17,19 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    private UserRepository userRepository;
+//    private UserRepository userRepository; // репозиторий юзер-сущностей, напрямую их использовать нельзя
+    private UserService userService; // нужно пользоваться userService
 
     @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService  userService) {
+        this.userService = userService;
     }
 
     @GetMapping
     public String userList(Model model) {
         logger.info("User list");
 
-        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("users", userService.findAll());
         return "users";
     }
 
@@ -44,8 +45,7 @@ public class UserController {
     public String saveUser(User user) {
         logger.info("Save user method");
 
-        userRepository.save(user);
+        userService.save(user);
         return "redirect:/user";
     }
 }
-
