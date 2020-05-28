@@ -1,15 +1,26 @@
 package ru.eracom.persist.entity;
 
+import javax.persistence.*;
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "products")
 public class Product {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(length = 32)
     private String title;
-    private float cost;
+
+    @Column(length = 32)
+    private BigDecimal cost;
 
     public Product() {
     }
 
-    public Product(long id, String title, float cost) {
+    public Product(long id, String title, BigDecimal cost) {
         this.id = id;
         this.title = title;
         this.cost = cost;
@@ -31,11 +42,11 @@ public class Product {
         this.title = title;
     }
 
-    public float getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public void setCost(float cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 }
