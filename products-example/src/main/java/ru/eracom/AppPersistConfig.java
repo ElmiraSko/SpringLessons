@@ -24,13 +24,13 @@ public class AppPersistConfig {
         // Создаем источник данных
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         // Задаем параметры подключения к базе данных
-        dataSource.setUrl("jdbc:mysql://localhost:3306/spring_mvc_db_les4?serverTimezone=Europe/Moscow&useSSL=false");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/spring_mvc_db_les4?serverTimezone=Europe/Moscow&useSSL=false&allowPublicKeyRetrieval=true");
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUsername("root");
         dataSource.setPassword("my18Erasql");
         return dataSource;
     }
-
+// ?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&
     @Bean(name="entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         // Создаем класса фабрики, реализующей интерфейс

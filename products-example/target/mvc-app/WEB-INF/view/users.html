@@ -24,10 +24,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Products</a>
+                    <a class="nav-link" th:href="@{/user/toProducts}">Products</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Users</a>
+                    <a class="nav-link" th:href="@{/user/toUsers}">Users</a>
                 </li>
             </ul>
 
@@ -48,6 +48,9 @@
                         <tr>
                             <th scope="col">Id</th>
                             <th scope="col">Name</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Email</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -57,7 +60,10 @@
                 </tr>
                 <tr th:each="us : ${users}">
                     <th scope="row" th:text="${us.id}">1</th>
-                    <td th:text="${us.name}">Alex</td>
+                    <td th:text="${us.name}">UserName</td>
+                    <td th:text="${us.age}">UserAge</td>
+                    <td th:text="${us.password}">UserPassword</td>
+                    <td th:text="${us.email}">UserEmail</td>
                     <td>
                         <a class="btn btn-success" href="#"><i class="fas fa-edit"></i></a>
                         <a class="btn btn-danger" href="#"><i class="far fa-trash-alt"></i></a>
