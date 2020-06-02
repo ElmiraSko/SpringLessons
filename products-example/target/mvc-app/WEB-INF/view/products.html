@@ -70,7 +70,7 @@
 			  		<td th:text="${prod.title}">title</td>
 			  		<td th:text="${prod.cost}">price</td>
 			  		<td>
-						<a class="btn btn-success"  th:href="@{/product/{id} (id=${prod.id})}">
+						<a class="btn btn-success"  th:href="@{/product/edit/{id} (id=${prod.id})}">
 							<i class="fas fa-edit"></i></a>
 						<a class="btn btn-danger" href="#">
 							<i class="far fa-trash-alt"></i></a>

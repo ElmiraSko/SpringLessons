@@ -1,6 +1,9 @@
 package ru.eracom.persist.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 @Entity
@@ -11,10 +14,13 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(length = 32)
+    @NotBlank(message = "Это поле обязательное для заполнения")
+    @Column(length = 32, nullable = false)
     private String title;
 
-    @Column(length = 32)
+    @DecimalMin(message = "Допустимое минимальное значение больше 10", value = "10", inclusive = false)
+    @DecimalMax(message = "Превышено максимальное значение 500000", value = "500000")
+    @Column(length = 32, nullable = false)
     private BigDecimal cost;
 
     public Product() {

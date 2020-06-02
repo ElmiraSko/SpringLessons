@@ -7,7 +7,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>Save new product</title>
+    <title>Edit product</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -19,10 +19,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/products}">Products</a>
+                <a class="nav-link" th:href="@{/products/toProducts}">Products</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/user}">Users</a>
+                <a class="nav-link" th:href="@{/toUsers}">Users</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" action="#" method="post">
@@ -33,17 +33,24 @@
 <div class="container">
     <h1 class="text-center">Edit product</h1>
     <div class="row py-2">
-        <form th:action="@{/product/{id}(id=${editProduct.id})}" method="post" th:object="${editProduct}">
+        <!-- -->
+        <form th:action="@{/product/save/{id}(id=${editProduct.id})}" th:object="${editProduct}" method="post">
             <input th:type="hidden" th:field="*{id}">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" id="title" th:field="*{title}" th:value="*{title}"
-                       class="form-control"  placeholder="Enter name">
+                       class="form-control"  placeholder="Enter name"/>
+                <small id="titleError" class="form-text text-muted"
+                       th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
+                    title validation error</small>
             </div>
             <div class="form-group">
                 <label for="cost">Cost</label>
                 <input type="number" id="cost" th:field="*{cost}" th:value="*{cost}"
-                       class="form-control" step="0.01" min="0" placeholder="0,00">
+                       class="form-control" step="0.01" min="0" placeholder="0,00"/>
+                <small id="costError" class="form-text text-muted"
+                       th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}">
+                    cost validation error</small>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

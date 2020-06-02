@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.eracom.persist.entity.Product;
 import ru.eracom.service.ProductService;
@@ -75,29 +76,41 @@ public class ProductController {
     }
     // сохраняем новый продукт
     @PostMapping
-    public String saveProduct(Product product) {
+    public String saveProduct(@Valid Product product, BindingResult bindingResult) {
         logger.info("Save product method");
 
+        // стандартная (внутренняя) валидация
+        if (bindingResult.hasErrors()) {
+            return "product";
+        }
         productService.saveProduct(product);
         return "redirect:/product?minCost=&maxCost=&productTitle=";
     }
 
     // переход на страницу редактирования товара
-    @GetMapping(value="/{id}")
+    @GetMapping(value="/edit/{id}")
     public String findProductById(Model model, @PathVariable(value="id") long id) {
         logger.info("Find product by id method");
 
         Optional<Product> editProduct = productService.productById(id);
-        model.addAttribute("id", id);
+        // editProduct.get() вернет или product или null, если его не было
+        // желательно get() не использовать, а заменить на orElse() или orElseThrow()
         model.addAttribute("editProduct", editProduct.get());
         return "editProduct";
     }
 
-    // редактирование и сохранение товара
-    @PostMapping(value="/{id}")
-    public String saveProductById(@Valid Product product) {
+    // редактирование и сохранение товара по url:  /product/save/{id}
+    // @Valid Product product, BindingResult bindingResult должны идти рядом
+    @PostMapping(value="/save/{id}")
+    public String saveProductById(@ModelAttribute("editProduct") @Valid Product product,
+                                  BindingResult bindingResult
+                                  ) {
         logger.info("Save product by id");
 
+        if (bindingResult.hasErrors()) {
+            logger.info("Errors!");
+            return "editProduct";
+        }
         productService.saveProduct(product);
         return "redirect:/product?minCost=&maxCost=&productTitle=";
     }

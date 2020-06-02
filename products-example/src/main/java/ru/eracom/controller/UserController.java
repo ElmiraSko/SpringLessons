@@ -33,15 +33,15 @@ public class UserController {
         logger.info("User list");
 
         model.addAttribute("users", userService.findAll());
-        return "users";
+        return "users"; // html-шаблон
     }
 
-    @GetMapping("new")
+    @GetMapping("new") // url (/user/new)
     public String createUser(Model model) {
         logger.info("Create user form");
 
         model.addAttribute("user", new User());
-        return "user";
+        return "user"; // html-форма
     }
 
     @PostMapping
