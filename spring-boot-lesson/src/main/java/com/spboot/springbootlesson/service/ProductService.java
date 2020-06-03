@@ -1,4 +1,4 @@
-package ru.eracom.service;
+package com.spboot.springbootlesson.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -6,9 +6,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.eracom.persist.entity.Product;
-import ru.eracom.persist.repo.ProductRepository;
-import ru.eracom.persist.repo.ProductSpecification;
+import com.spboot.springbootlesson.persist.entity.Product;
+import com.spboot.springbootlesson.persist.repo.ProductRepository;
+import com.spboot.springbootlesson.persist.repo.ProductSpecification;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -49,6 +49,11 @@ public class ProductService {
     @Transactional(readOnly = true)
     public Optional<Product> productById(long id) {
         return productRepository.findById(id);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        productRepository.deleteById(id);
     }
 
 }
