@@ -12,6 +12,7 @@
         <module>NetworkChat</module>
         <module>TestCamera</module>
         <module>products-example</module>
+        <module>spring-boot-lesson</module>
     </modules>
 
 
