@@ -1,12 +1,13 @@
-C:\Projects\Spring\Spring_lesson1\MyChat\products-example\src\main\java\ru\eracom\AppPersistConfig.java
 C:\Projects\Spring\Spring_lesson1\MyChat\products-example\src\main\java\ru\eracom\controller\UserController.java
 C:\Projects\Spring\Spring_lesson1\MyChat\products-example\src\main\java\ru\eracom\WelcomeController.java
 C:\Projects\Spring\Spring_lesson1\MyChat\products-example\src\main\java\ru\eracom\AppConfig.java
-C:\Projects\Spring\Spring_lesson1\MyChat\products-example\src\main\java\ru\eracom\persist\entity\User.java
 C:\Projects\Spring\Spring_lesson1\MyChat\products-example\src\main\java\ru\eracom\WebInitializer.java
+C:\Projects\Spring\Spring_lesson1\MyChat\products-example\src\main\java\ru\eracom\controller\ProductController.java
+C:\Projects\Spring\Spring_lesson1\MyChat\products-example\src\main\java\ru\eracom\AppPersistConfig.java
+C:\Projects\Spring\Spring_lesson1\MyChat\products-example\src\main\java\ru\eracom\persist\entity\User.java
 C:\Projects\Spring\Spring_lesson1\MyChat\products-example\src\main\java\ru\eracom\persist\repo\ProductRepository.java
 C:\Projects\Spring\Spring_lesson1\MyChat\products-example\src\main\java\ru\eracom\persist\repo\UserRepository.java
 C:\Projects\Spring\Spring_lesson1\MyChat\products-example\src\main\java\ru\eracom\service\ProductService.java
-C:\Projects\Spring\Spring_lesson1\MyChat\products-example\src\main\java\ru\eracom\controller\ProductController.java
 C:\Projects\Spring\Spring_lesson1\MyChat\products-example\src\main\java\ru\eracom\service\UserService.java
 C:\Projects\Spring\Spring_lesson1\MyChat\products-example\src\main\java\ru\eracom\persist\entity\Product.java
+C:\Projects\Spring\Spring_lesson1\MyChat\products-example\src\main\java\ru\eracom\persist\repo\ProductSpecification.java

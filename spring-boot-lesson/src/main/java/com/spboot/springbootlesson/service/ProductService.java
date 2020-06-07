@@ -11,6 +11,7 @@ import com.spboot.springbootlesson.persist.repo.ProductRepository;
 import com.spboot.springbootlesson.persist.repo.ProductSpecification;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -54,6 +55,11 @@ public class ProductService {
     @Transactional
     public void delete(Long id) {
         productRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
 
 }

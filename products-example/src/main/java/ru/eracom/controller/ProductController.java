@@ -72,7 +72,7 @@ public class ProductController {
     @GetMapping("toProducts")
     public String goToProducts() {
         logger.info("Going to products");
-        return "redirect:/product?minCost=&maxCost=&productTitle=";
+        return "redirect:/product";
     }
     // сохраняем новый продукт
     @PostMapping
@@ -84,7 +84,7 @@ public class ProductController {
             return "product";
         }
         productService.saveProduct(product);
-        return "redirect:/product?minCost=&maxCost=&productTitle=";
+        return "redirect:/product";
     }
 
     // переход на страницу редактирования товара
@@ -112,6 +112,6 @@ public class ProductController {
             return "editProduct";
         }
         productService.saveProduct(product);
-        return "redirect:/product?minCost=&maxCost=&productTitle=";
+        return "redirect:/product";
     }
 }
