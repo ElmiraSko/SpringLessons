@@ -1,5 +1,7 @@
 package com.spboot.springbootlesson.controller;
 
+import com.spboot.springbootlesson.persist.repo.RoleRepository;
+import com.spboot.springbootlesson.rest.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,12 @@ public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private UserService userService;
+    private RoleRepository roleRepository;
 
     @Autowired
-    public UserController(UserService  userService) {
+    public UserController(UserService  userService, RoleRepository roleRepository) {
         this.userService = userService;
+        this.roleRepository = roleRepository;
     }
 
     @GetMapping
@@ -38,17 +42,21 @@ public class UserController {
         logger.info("Create user form");
 
         model.addAttribute("user", new User());
+        model.addAttribute("roles", roleRepository.findAll());
         return "user";
     }
+
     @GetMapping("edit")
     public String createUser(@RequestParam("id") Long id, Model model) {
         logger.info("Edit user width id {} ", id);
 
-        model.addAttribute("user", userService.findById(id));
+        model.addAttribute("user", userService.findById(id)
+                .orElseThrow(() ->new NotFoundException("Not found user by Id")));
+        model.addAttribute("roles", roleRepository.findAll());
         return "user";
     }
 
-    @PostMapping
+    @PostMapping("save")
     public String saveUser(@Valid User user, BindingResult bindingResult) {
         logger.info("Save user method");
 

@@ -23,6 +23,9 @@ public class Product {
     @Column(length = 32, nullable = false)
     private BigDecimal cost;
 
+    @ManyToOne
+    private User user;
+
     public Product() {
     }
 
@@ -54,5 +57,13 @@ public class Product {
 
     public void setCost(BigDecimal cost) {
         this.cost = cost;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

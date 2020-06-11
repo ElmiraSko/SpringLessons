@@ -1,5 +1,7 @@
 <!doctype html>
-<html lang="en" xmlns:th ="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th ="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <head>
         <!-- Required meta tags -->
@@ -14,7 +16,7 @@
     <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">EShop</a>
+        <a class="navbar-brand" th:href="@{/}">EShop</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -28,8 +30,15 @@
                     <a class="nav-link" th:href="@{/user/toUsers}">Users</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0" action="#" method="post">
-                <button class="btn btn-outline-success my-2 my-sm-0">Logout</button>
+            <form sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0"
+                  th:action="@{/logout}" method="post">
+                <button class="btn btn-outline-success my-2 my-sm-0">
+                    Logout
+                </button>
+            </form>
+            <form sec:authorize="isAnonymous()" class="form-inline my-2 my-lg-0"
+                  th:action="@{/login}" method="get">
+                <button class="btn btn-outline-success my-2 my-sm-0">Sign in</button>
             </form>
         </div>
     </nav>
@@ -37,7 +46,7 @@
     <div class="container">
         <div class="row py-2">
             <div class="col-12">
-                <form th:action="@{/user}" method="post" th:object="${user}">
+                <form th:action="@{/user/save}" method="post" th:object="${user}">
                     <input th:type="hidden" th:field="*{id}"/>
                     <div class="form-group">
                         <label for="name">Name</label>
@@ -78,6 +87,15 @@
                         <small id="repeatPasswordError" class="form-text text-muted"
                                th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{repeatPassword}">
                             repeat password error</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="roles">Roles</label>
+                        <select multiple class="form-control" id="roles" th:field="*{roles}" required>
+                            <option th:each="role : ${roles}"
+                                    th:text="${role.name}"
+                                    th:value="${role.id}"
+                                    th:selected="${user.roles?.contains(role)}"></option>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>

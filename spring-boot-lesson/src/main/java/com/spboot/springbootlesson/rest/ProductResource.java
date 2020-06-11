@@ -27,7 +27,7 @@ public class ProductResource {
     @GetMapping(path = "{id}/id")
     public Product findById(@PathVariable("id") long id) {
         return productService.productById(id)
-                .orElseThrow(() -> new NotFoundEntityException("В базе данных нет продукта с id = " + id));
+                .orElseThrow(() -> new NotFoundException("В базе данных нет продукта с id = " + id));
     }
 
     @PostMapping
@@ -56,8 +56,8 @@ public class ProductResource {
 
     // вывод сообщения в виде json
     @ExceptionHandler
-    public ResponseEntity<NotProductExResponse> notFoundEntityExceptionHandler(NotFoundEntityException ex) {
-        NotProductExResponse errorResponse = new NotProductExResponse();
+    public ResponseEntity<ExceptionMessage> notFoundEntityExceptionHandler(NotFoundException ex) {
+        ExceptionMessage errorResponse = new ExceptionMessage();
         errorResponse.setMessage(ex.getMessage());
         errorResponse.setStatus(HttpStatus.NOT_FOUND.value());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);

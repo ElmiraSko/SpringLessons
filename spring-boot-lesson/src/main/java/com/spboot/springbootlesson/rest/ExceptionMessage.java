@@ -2,12 +2,12 @@ package com.spboot.springbootlesson.rest;
 
 import java.util.Date;
 
-public class NotProductExResponse {
+public class ExceptionMessage {
     private int status;
     private String message;
     private Date date;
 
-    public NotProductExResponse() {
+    public ExceptionMessage() {
         date = new Date();
     }
 
