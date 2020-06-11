@@ -1,34 +1,36 @@
 package ru.eracom.persist.repo;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 import ru.eracom.persist.entity.Product;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.math.BigDecimal;
+import java.util.Optional;
 
 @Repository
-public class ProductRepository {
+public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
 
-    private final AtomicInteger identityGen;
-    private final List<Product> products;
+    Page<Product> findByCostGreaterThanEqual(BigDecimal minCost, Pageable pageable);
+    Page<Product> findByCostLessThanEqual(BigDecimal maxCost, Pageable pageable);
+    Page<Product> findByCostBetween(BigDecimal minCost, BigDecimal maxCost, Pageable pageable);
 
-    public ProductRepository() {
-        identityGen = new AtomicInteger(0);
-        this.products = new LinkedList<>();
-    }
+    // поиск по полному соответствию
+    Page<Product> findByTitle(String productTitle, Pageable pageable);
+    // поиск по начальным буквам
+    Page<Product> findByTitleStartingWith(String productTitle, Pageable pageable);
 
-    public List<Product> findProducts() { // может вернуть все продукты в виде списка
-        return products;
-    }
+    // поиск по фрагменту
+    Page<Product> findByTitleContains(String productTitle, Pageable pageable);
 
-    public void saveProduct(Product newProduct) {
-        long id = identityGen.incrementAndGet();
-        newProduct.setId(id);
-        products.add(newProduct);
-    }
+    Page<Product> findByTitleContainsAndCostGreaterThanEqual(String productTitle, BigDecimal minCost, Pageable pageable);
+    Page<Product> findByTitleContainsAndCostLessThanEqual(String productTitle, BigDecimal maxCost, Pageable pageable);
+    Page<Product> findByTitleContainsAndCostBetween(String productTitle, BigDecimal minCost, BigDecimal maxCost, Pageable pageable);
 
-    public Product findById(int id) {  // может выдать продукт по ключу
-        return products.get(id);
-    }
+    Optional<Product> findById(Long id);
+
+
+
 }
